@@ -1,1 +1,10 @@
-va
+install.packages ("dplyr")
+library (dplyr)
+ita<- mundo %>%
+  as_tibble() %>%
+  filter (iso_code== "ITA")
+
+ita <- ita[order(as.Date(ita$dateRep, format="%d/%m/%Y")),]%>%
+  mutate (acumlado =cumsum (total_cases)) %>% 
+  filter(between (acumlado, 1000, 3000))#%>%
+select(date, total_cases, total_deaths, iso_code, aged_70_older, acumlado, extreme_poverty)
